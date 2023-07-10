@@ -1,6 +1,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
 
+# Copy the package.json file to the container
+COPY package.json .
+
 RUN apt-get update && apt-get -y install curl sudo
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get -y install nodejs
@@ -13,7 +16,9 @@ RUN chown -R myuser:myuser /app
 
 USER myuser
 
-COPY . ./
+# Copy the rest of the files to the container
+COPY . .
+
 RUN dotnet restore
 
 # Run npm install without sudo
@@ -21,9 +26,4 @@ RUN npm install --unsafe-perm=true --allow-root
 
 RUN dotnet publish "dotnet6.csproj" -c Release -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-COPY --from=build /app/publish .
-ENV ASPNETCORE_URLS http://*:5000
-
-EXPOSE 5000
-ENTRYPOINT ["dotnet", "dotnet6.dll"]
+# ...
