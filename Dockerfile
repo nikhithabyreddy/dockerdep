@@ -16,8 +16,8 @@ USER myuser
 COPY . ./
 RUN dotnet restore
 
-# Run npm install with elevated permissions using sudo
-RUN sudo npm install --unsafe-perm=true --allow-root
+# Run npm install without sudo
+RUN npm install --unsafe-perm=true --allow-root
 
 RUN dotnet publish "dotnet6.csproj" -c Release -o /app/publish
 
