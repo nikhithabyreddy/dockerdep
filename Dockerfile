@@ -10,10 +10,10 @@ RUN useradd -m -s /bin/bash myuser
 
 # Set the ownership of the application directory to the new user
 RUN chown -R myuser:myuser /app
+COPY . ./
 
 USER myuser
 
-COPY . ./
 RUN dotnet restore
 
 RUN dotnet publish "dotnet6.csproj" -c Release -o /app/publish
