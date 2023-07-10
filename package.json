@@ -1,0 +1,11 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "My .NET Core application",
+  "scripts": {
+    "start": "dotnet dotnet6.dll"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
