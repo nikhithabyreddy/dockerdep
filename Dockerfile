@@ -6,8 +6,8 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get -y install nodejs
 
 # Create a non-root user
-RUN groupadd -g 2000 nik \
-&& useradd -m -u 2000 -g 2000 nik
+#RUN groupadd -g 2000 nik \#
+#&& useradd -m -u 2000 -g 2000 nik#
 
 COPY . ./
 
