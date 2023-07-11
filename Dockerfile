@@ -1,28 +1,37 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /app
 
-# Copy the package.json file to the container
-COPY package.json .
-
-RUN apt-get update && apt-get -y install curl sudo
+RUN apt-get update
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get -y install nodejs
+RUN groupadd -r myuser && useradd -r -g myuser myuser
 
-# Create a new user
-RUN useradd -m -s /bin/bash myuser
+# Copy the project files to the container
+COPY . .
 
-# Set the ownership of the application directory to the new user
-RUN chown -R myuser:myuser /app
+# Restore dependencies
+RUN dotnet restore
+
+# Build and publish the application
+RUN dotnet publish "dotnet6.csproj" -c Release -o /app/publish
+
+# Set permissions for user
+RUN chown -R myuser:myuser /app/publish
 
 USER myuser
 
-# Copy the rest of the files to the container
-COPY . .
+# Start a new stage for the runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+WORKDIR /app
 
-RUN dotnet restore
+# Copy the published output from the build stage
+COPY --from=build /app/publish .
 
-# Run npm install without sudo
-RUN npm install --unsafe-perm=true --allow-root
+# Set the environment variable for ASP.NET Core URL binding
+ENV ASPNETCORE_URLS http://*:5000
 
-RUN mkdir -p /app/publish   # Create the /app/publish directory
-RUN dotnet publish "dotnet6.csproj" -c Release -o /app/publish
+# Expose the port
+EXPOSE 5000
+
+# Set the entry point to start the application
+ENTRYPOINT ["dotnet", "dotnet6.dll"]
