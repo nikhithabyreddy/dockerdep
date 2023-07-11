@@ -13,7 +13,7 @@ RUN groupadd -r myuser && useradd -r -g myuser myuser
 USER myuser
 # Restore dependencies
 RUN dotnet restore
-RUN dotnet bulid "dotnet6.csproj" -c Release
+RUN dotnet build "dotnet6.csproj" -c Release
 # Build and publish the application
 RUN dotnet publish "dotnet6.csproj" -c Release -o /app/publish
 
@@ -22,7 +22,7 @@ RUN dotnet publish "dotnet6.csproj" -c Release -o /app/publish
 
 # Start a new stage for the runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-RUN useradd -ms /bin/bash/myuser
+RUN useradd -ms /bin/bash myuser
 WORKDIR /app
 
 # Copy the published output from the build stage
