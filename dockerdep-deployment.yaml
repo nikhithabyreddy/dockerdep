@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dockerdep-10-app
+  name: nginx-deployment
   labels:
-    app: dockerdep-10-app
+    app: nginx
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: dockerdep-10-app
+      app: nginx
   template:
     metadata:
       labels:
-        app: dockerdep-10-app
+        app: nginx
     spec:
       containers:
-      - name: dockerdep-10-app
-        image:dockerdep-10-app
+      - name: nginx
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
