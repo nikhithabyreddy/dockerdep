@@ -12,7 +12,7 @@ RUN apt-get -y install nodejs
 RUN useradd -m -s /bin/bash myuser
 
 # Set the ownership of the application directory to the new user
-RUN chown -R myuser:myuser /app/publish
+RUN chown -R myuser:myuser /app
 
 USER myuser
 
@@ -24,6 +24,5 @@ RUN dotnet restore
 # Run npm install without sudo
 RUN npm install --unsafe-perm=true --allow-root
 
+RUN mkdir -p /app/publish   # Create the /app/publish directory
 RUN dotnet publish "dotnet6.csproj" -c Release -o /app/publish
-
-# ...
