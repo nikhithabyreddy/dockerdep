@@ -12,7 +12,7 @@ RUN apt-get -y install nodejs
 RUN useradd -m -s /bin/bash myuser
 
 # Set the ownership of the application directory to the new user
-RUN chown -R myuser:myuser /app
+RUN chown -R myuser:myuser /app/publish
 
 USER myuser
 
