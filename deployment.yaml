@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: dockerdep-10-app
-        image: dockercontainer280.azurecr.io
+        image: nbyreddy/dockerdep-10-app:1.0.0
         ports:
         - containerPort: 80
