@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: dockerdep-10-app
-        image: dockerdep-10-app:latest
+        image: dockerdep-10-app
         ports:
         - containerPort: 80
