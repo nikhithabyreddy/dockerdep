@@ -19,3 +19,5 @@ spec:
         image: acrcontainer28.azurecr.io\dockerdep-10:latest
         ports:
         - containerPort: 80
+      imagePullSecrets:
+       - name: nikitha
