@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: dockerdep-10-app
-        image: acrcontainer28.azurecr.io\dockerdep-10:latest
+        image: acrcontainer28.azurecr.io\acrcontainer28:1.0.0
         ports:
         - containerPort: 80
       imagePullSecrets:
