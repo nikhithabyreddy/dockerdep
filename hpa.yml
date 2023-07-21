@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: docker-hpa
@@ -15,4 +15,7 @@ spec:
   - type: Resource
     resource:
       name: cpu
-      targetAverageUtilization: 50 # Adjust this value based on your application's CPU usage requirements
+      target:
+        type: Utilization
+        averageUtilization: 50 # Adjust this value based on your application's CPU usage requirements
+
