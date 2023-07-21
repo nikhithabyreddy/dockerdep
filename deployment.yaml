@@ -20,7 +20,7 @@ spec:
         app: myapp
     spec:
       containers:
-      - name: newasss:1.0.0
+      - name: newasss
         image: acr0720.azurecr.io/newass:1.0.0
         ports:
         - containerPort: 80
@@ -39,4 +39,5 @@ spec:
         envFrom:
         - configMapRef:
             name: myapp-config
+
 
