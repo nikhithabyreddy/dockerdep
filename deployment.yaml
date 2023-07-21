@@ -9,6 +9,11 @@ spec:
   selector:
     matchLabels:
       app: myapp
+  strategy: # Add the strategy block here
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   template:
     metadata:
       labels:
@@ -19,7 +24,6 @@ spec:
         image: acrcontainer28.azurecr.io/acrcontainer28:1.0.0
         ports:
         - containerPort: 80
-        # Add liveness and readiness probes below
         livenessProbe:
           httpGet:
             path: /healthz
@@ -32,4 +36,3 @@ spec:
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
-      
