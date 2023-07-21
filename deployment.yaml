@@ -1,4 +1,3 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,13 +15,20 @@ spec:
         cni.projectcalico.org/podIP: "10.244.0.28/32"  # Add this line if you have specific annotations for your pods
     spec:
       serviceAccountName: my-service-account
-      networkPolicies:
-      - type: Ingress
-        podSelector:
-          matchLabels:
-            app: myapp
       containers:
-      - name: charming_diffie
-        image: acr0720.azurecr.io/newass:1.0.0
+      - name: my-container
+        image: myregistry/myapp:v1
         ports:
         - containerPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: my-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: myapp
+  policyTypes:
+  - Ingress
+
