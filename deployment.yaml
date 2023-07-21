@@ -20,8 +20,8 @@ spec:
         app: myapp
     spec:
       containers:
-      - name: dockerdep-10-app
-        image: acrcontainer28.azurecr.io/acrcontainer28:1.0.0
+      - name: newasss:1.0.0
+        image: acr0720.azurecr.io/newass:1.0.0
         ports:
         - containerPort: 80
         livenessProbe:
