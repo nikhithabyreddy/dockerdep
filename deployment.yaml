@@ -19,5 +19,17 @@ spec:
         image: acrcontainer28.azurecr.io/acrcontainer28:1.0.0
         ports:
         - containerPort: 80
-      imagePullSecrets:
-       - name: nikitha
+        # Add liveness and readiness probes below
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      
