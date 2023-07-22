@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dotnet-app
+  template:
+    metadata:
+      labels:
+        app: dotnet-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: <node-label-key>   # Replace with the label key of the specific nodes you want to target
+                operator: In
+                values:
+                - <node-label-value>   # Replace with the label value of the specific nodes you want to target
+      containers:
+      - name: dotnet-container
+        image: your-dotnet-image:v1
+        ports:
+        - containerPort: 80
