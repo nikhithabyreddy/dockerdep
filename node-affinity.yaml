@@ -3,27 +3,17 @@ kind: Deployment
 metadata:
   name: my-deployment
 spec:
+  replicas: 3
+  selector:  # Add this selector field
+    matchLabels:
+      app: my-app  # Replace with appropriate labels for your deployment
   template:
+    metadata:
+      labels:
+        app: my-app  # These labels should match the selector labels above
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: environment
-                operator: In
-                values:
-                - production
-              - key: region
-                operator: In
-                values:
-                - us-west
-              - key: type
-                operator: In
-                values:
-                - gpu
       containers:
-      - name: my-container
-        image: myregistry/myapp:v1
-        ports:
-        - containerPort: 80
+        - name: my-app-container
+          image: your-dotnet-image:tag
+          # Add other container configuration as needed
+
