@@ -2,15 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: my-deployment
+  labels:
+    app: my-app
+    environment: production
 spec:
   replicas: 3
-  selector:  # Add this selector field
+  selector:
     matchLabels:
-      app: my-app  # Replace with appropriate labels for your deployment
+      app: my-app
   template:
     metadata:
       labels:
-        app: my-app  # These labels should match the selector labels above
+        app: my-app
+        environment: production
     spec:
       containers:
         - name: my-app-container
