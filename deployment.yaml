@@ -20,6 +20,12 @@ spec:
         image: myregistry/myapp:v1
         ports:
         - containerPort: 80
+      tolerations:  # Add the tolerations section here
+      - key: "special"  # Replace "special" with your taint key
+        operator: "Equal"
+        value: "true"   # Replace "true" with the taint value you want to tolerate
+        effect: "NoSchedule"  # Replace "NoSchedule" with the effect of the taint
+
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -31,4 +37,3 @@ spec:
       app: myapp
   policyTypes:
   - Ingress
-
