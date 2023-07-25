@@ -21,7 +21,7 @@ spec:
         ports:
         - containerPort: 80
       tolerations:  # Add the tolerations section here
-      - key: "special"  # Replace "special" with your taint key
+      - key: "pod"  # Replace "special" with your taint key
         operator: "Equal"
         value: "true"   # Replace "true" with the taint value you want to tolerate
         effect: "NoSchedule"  # Replace "NoSchedule" with the effect of the taint
